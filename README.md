@@ -5,6 +5,8 @@ Two datasets are loaded:
 depth_df: LOB snapshots (20 levels deep for bid & ask).
 trade_df: Aggregated trade data (buy/sell volumes, timestamps).
 Timestamps are cleaned and converted to proper datetime format, truncating microseconds to 6 digits.
+
+
 2. Feature Engineering
 
 From depth_df and trade_df, the pipeline computes key microstructure features:
@@ -25,10 +27,14 @@ Features are standardized using StandardScaler (CPU).
 Transformed to CuPy arrays and clustered using cuML.KMeans on GPU.
 6 market regimes are identified based on unsupervised clustering.
 The result is a new regime label for each timestamp.
+
+
 4. Visualization
 
 t-SNE (on CPU) projects high-dimensional data into 2D space, colored by cluster to visualize regime separation.
 Time-Series Plot shows how regimes evolve over time on top of mid-price data.
+
+
 5. Transition Matrix Analysis
 
 A Markov-style transition matrix is computed from the cluster labels.
